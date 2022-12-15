@@ -21,7 +21,6 @@ public class InputController {
 
             return amount;
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
             throw e;
         }
     }
@@ -40,7 +39,6 @@ public class InputController {
 
             return bonusNumber;
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
             throw e;
         }
     }

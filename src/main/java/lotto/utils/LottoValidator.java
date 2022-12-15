@@ -17,7 +17,6 @@ public class LottoValidator {
             validateDuplicate(numbers);
             validateCorrectRange(numbers);
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
             throw e;
         }
     }
