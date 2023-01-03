@@ -1,5 +1,6 @@
-package lotto;
+package lotto.model;
 
+import lotto.model.BonusNumber;
 import lotto.model.Lotto;
 import lotto.model.LottoNumber;
 import org.junit.jupiter.api.BeforeEach;
