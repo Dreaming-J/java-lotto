@@ -9,9 +9,10 @@ public class BonusNumber {
     private final LottoNumber bonusNo;
 
     public BonusNumber(int no, Lotto answer) {
-        if (answer.contains(no)) {
+        LottoNumber lottoNumber = new LottoNumber(no);
+        if (answer.draw(lottoNumber)) {
             throw new IllegalArgumentException(WRONG_BONUS_NUMBER);
         }
-        this.bonusNo = new LottoNumber(no);
+        this.bonusNo = lottoNumber;
     }
 }

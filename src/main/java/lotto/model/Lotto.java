@@ -21,7 +21,7 @@ public class Lotto {
         }
     }
 
-    public boolean contains(int no) {
-        return numbers.contains(new LottoNumber(no));
+    public boolean draw(LottoNumber lottoNumber) {
+        return numbers.contains(lottoNumber);
     }
 }

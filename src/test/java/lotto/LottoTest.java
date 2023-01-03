@@ -1,11 +1,13 @@
 package lotto;
 
 import lotto.model.Lotto;
+import lotto.model.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -31,5 +33,13 @@ class LottoTest {
                 .isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 46)))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void draw() {
+        Lotto answer = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        assertThat(answer.draw(new LottoNumber(1))).isTrue();
+        assertThat(answer.draw(new LottoNumber(5))).isTrue();
+        assertThat(answer.draw(new LottoNumber(10))).isFalse();
     }
 }
