@@ -1,8 +1,5 @@
 package lotto.model;
 
-import lotto.model.BonusNumber;
-import lotto.model.Lotto;
-import lotto.model.LottoNumber;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -42,12 +39,10 @@ class LottoTest {
     class drawTest {
 
         private Lotto winningNumber;
-        private BonusNumber bonusNumber;
 
         @BeforeEach
         void setUp() {
             winningNumber = new Lotto(List.of(1, 2, 3, 4, 5, 6));
-            bonusNumber = new BonusNumber(7, winningNumber);
         }
 
         @Test
