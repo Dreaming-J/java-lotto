@@ -22,4 +22,11 @@ public class LottoResult {
             throw new IllegalArgumentException(WRONG_COST_BY_NOT_DIVIDED_TO_1000);
         }
     }
+
+    public int calTotalPrize(List<LottoPrize> prize) {
+        return prize.stream()
+                .map(LottoPrize::getPrize)
+                .reduce(Integer::sum)
+                .get();
+    }
 }

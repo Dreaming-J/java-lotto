@@ -16,4 +16,11 @@ public class LottoResultTest {
         assertThatThrownBy(() -> new LottoResult((500)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    void 상금_계산() {
+        List<LottoPrize> prize = List.of(LottoPrize.FIFTH, LottoPrize.FIRST, LottoPrize.SECOND);
+        LottoResult result = new LottoResult(10000);
+        assertThat(result.calTotalPrize(prize)).isEqualTo(2030005000);
+    }
 }

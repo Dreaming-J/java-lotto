@@ -19,6 +19,10 @@ public enum LottoPrize {
         this.prize = prize;
     }
 
+    public int getPrize() {
+        return prize;
+    }
+
     public static LottoPrize from(int drawCount) {
         return Stream.of(values())
                 .filter(prize -> prize.count == drawCount)
