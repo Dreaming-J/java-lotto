@@ -2,7 +2,9 @@ package lotto;
 
 import lotto.model.Lotto;
 import lotto.model.LottoNumber;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -35,11 +37,37 @@ class LottoTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @Test
-    void draw() {
-        Lotto answer = new Lotto(List.of(1, 2, 3, 4, 5, 6));
-        assertThat(answer.draw(new LottoNumber(1))).isTrue();
-        assertThat(answer.draw(new LottoNumber(5))).isTrue();
-        assertThat(answer.draw(new LottoNumber(10))).isFalse();
+    @Nested
+    class drawTest {
+
+        private Lotto winningNumber;
+        private BonusNumber bonusNumber;
+
+        @BeforeEach
+        void setUp() {
+            winningNumber = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+            bonusNumber = new BonusNumber(7, winningNumber);
+        }
+
+        @Test
+        void draw() {
+            assertThat(winningNumber.draw(new LottoNumber(1))).isTrue();
+            assertThat(winningNumber.draw(new LottoNumber(5))).isTrue();
+            assertThat(winningNumber.draw(new LottoNumber(10))).isFalse();
+        }
+
+        @Test
+        void draw_count_0() {
+            Lotto lotto = new Lotto(List.of(11, 12, 13, 14, 15, 16));
+
+            assertThat(winningNumber.draw(lotto)).isEqualTo(0);
+        }
+
+        @Test
+        void draw_count_5() {
+            Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 16));
+
+            assertThat(winningNumber.draw(lotto)).isEqualTo(5);
+        }
     }
 }

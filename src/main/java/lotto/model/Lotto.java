@@ -21,6 +21,13 @@ public class Lotto {
         }
     }
 
+    public int draw(Lotto lotto) {
+        return (int) numbers.stream()
+                .map(lotto::draw)
+                .filter(bool -> bool)
+                .count();
+    }
+
     public boolean draw(LottoNumber lottoNumber) {
         return numbers.contains(lottoNumber);
     }
