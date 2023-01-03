@@ -20,4 +20,8 @@ public class Lotto {
             throw new IllegalArgumentException(WRONG_FORMAT_OF_LOTTO_NUMBER);
         }
     }
+
+    public boolean contains(int no) {
+        return numbers.contains(new LottoNumber(no));
+    }
 }
