@@ -50,24 +50,21 @@ class LottoTest {
         }
 
         @Test
-        void draw() {
+        void draw_단일_비교() {
             assertThat(winningNumber.draw(new LottoNumber(1))).isTrue();
             assertThat(winningNumber.draw(new LottoNumber(5))).isTrue();
             assertThat(winningNumber.draw(new LottoNumber(10))).isFalse();
         }
 
         @Test
-        void draw_count_0() {
-            Lotto lotto = new Lotto(List.of(11, 12, 13, 14, 15, 16));
-
-            assertThat(winningNumber.draw(lotto)).isEqualTo(0);
-        }
-
-        @Test
-        void draw_count_5() {
-            Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 16));
-
-            assertThat(winningNumber.draw(lotto)).isEqualTo(5);
+        void draw_전체_일치_개수_0_6() {
+            assertThat(winningNumber.draw(new Lotto(List.of(11, 12, 13, 14, 15, 16)))).isEqualTo(0);
+            assertThat(winningNumber.draw(new Lotto(List.of(1, 12, 13, 14, 15, 16)))).isEqualTo(1);
+            assertThat(winningNumber.draw(new Lotto(List.of(1, 2, 13, 14, 15, 16)))).isEqualTo(2);
+            assertThat(winningNumber.draw(new Lotto(List.of(1, 2, 3, 14, 15, 16)))).isEqualTo(3);
+            assertThat(winningNumber.draw(new Lotto(List.of(1, 2, 3, 4, 15, 16)))).isEqualTo(4);
+            assertThat(winningNumber.draw(new Lotto(List.of(1, 2, 3, 4, 5, 16)))).isEqualTo(5);
+            assertThat(winningNumber.draw(new Lotto(List.of(1, 2, 3, 4, 5, 6)))).isEqualTo(6);
         }
     }
 }
