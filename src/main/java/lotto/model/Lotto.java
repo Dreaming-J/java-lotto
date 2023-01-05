@@ -22,6 +22,10 @@ public class Lotto {
         }
     }
 
+    public List<LottoNumber> getNumbers() {
+        return numbers;
+    }
+
     public int draw(Lotto lotto) {
         return (int) numbers.stream()
                 .map(lotto::draw)

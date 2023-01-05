@@ -59,4 +59,8 @@ public class LottoResult {
         }
         return integerPart.toString();
     }
+
+    public int count() {
+        return cost / UNIT_COST;
+    }
 }
