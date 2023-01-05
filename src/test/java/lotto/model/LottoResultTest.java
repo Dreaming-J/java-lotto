@@ -28,7 +28,10 @@ public class LottoResultTest {
     void 수익률_계산() {
         LottoResult result = new LottoResult(8000);
         assertThat(result.yield(5000)).isEqualTo("62.5");
-        assertThat(result.yield(2030005000)).isEqualTo("25375062.5");
+        assertThat(result.yield(2030005000)).isEqualTo("25,375,062.5");
         assertThat(result.yield(3750)).isEqualTo("46.88");
+        assertThat(result.yield(80020)).isEqualTo("1,000.25");
+        assertThat(result.yield(8000020)).isEqualTo("100,000.25");
+        assertThat(result.yield(8020)).isEqualTo("100.25");
     }
 }
