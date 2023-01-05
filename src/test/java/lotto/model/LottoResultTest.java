@@ -23,4 +23,12 @@ public class LottoResultTest {
         LottoResult result = new LottoResult(10000);
         assertThat(result.calTotalPrize(prize)).isEqualTo(2030005000);
     }
+
+    @Test
+    void 수익률_계산() {
+        LottoResult result = new LottoResult(8000);
+        assertThat(result.yield(5000)).isEqualTo("62.5");
+        assertThat(result.yield(2030005000)).isEqualTo("25375062.5");
+        assertThat(result.yield(3750)).isEqualTo("46.88");
+    }
 }
