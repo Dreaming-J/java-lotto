@@ -1,5 +1,7 @@
 package lotto.model;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public enum LottoPrize {
@@ -28,6 +30,12 @@ public enum LottoPrize {
                 .filter(prize -> prize.count == drawCount)
                 .findFirst()
                 .orElse(NOTHING);
+    }
+
+    public static List<LottoPrize> valuesWithoutNothing() {
+        return Stream.of(values())
+                .filter(prize -> prize != NOTHING)
+                .collect(Collectors.toList());
     }
 
     public boolean isThird() {
