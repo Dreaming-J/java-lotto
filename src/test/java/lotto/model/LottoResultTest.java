@@ -33,5 +33,6 @@ public class LottoResultTest {
         assertThat(result.yield(80020)).isEqualTo("1,000.25");
         assertThat(result.yield(8000020)).isEqualTo("100,000.25");
         assertThat(result.yield(8020)).isEqualTo("100.25");
+        assertThat(result.yield(0)).isEqualTo("0");
     }
 }

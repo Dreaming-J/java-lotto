@@ -43,6 +43,10 @@ public class LottoResult {
     }
 
     private String modifyYieldForamt(String yield) {
+        if (!yield.contains(DECIMAL_POINT)) {
+            return yield;
+        }
+
         int indexDecimalPoint = yield.indexOf(DECIMAL_POINT);
         StringBuilder integerPart = new StringBuilder(yield.substring(ZERO, indexDecimalPoint));
         String decimalPart = yield.substring(indexDecimalPoint);
