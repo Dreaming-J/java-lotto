@@ -4,6 +4,7 @@ import lotto.model.Lotto;
 import lotto.model.LottoPrize;
 import lotto.model.LottoResult;
 import lotto.model.WinningLotto;
+import lotto.module.RepeatModule;
 import lotto.util.RandomGenerator;
 import lotto.view.InputView;
 import lotto.view.OutputView;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MainController {
+public class MainController extends RepeatModule {
 
     private final InputView inputView;
     private final OutputView outputView;
@@ -27,7 +28,7 @@ public class MainController {
     }
 
     public void issueLotto() {
-        result = inputView.readCost();
+        result = repeat(inputView::readCost);
 
         for (int iter = 0; iter < result.count(); iter++) {
             lottos.add(new Lotto(RandomGenerator.createLottoNumbers()));
@@ -38,7 +39,7 @@ public class MainController {
     }
 
     public void decideWinningLotto() {
-        winningLotto = inputView.readWinningLotto();
+        winningLotto = repeat(inputView::readWinningLotto);
 
         List<LottoPrize> prizes = lottos.stream()
                 .map(winningLotto::draw)

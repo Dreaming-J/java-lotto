@@ -18,6 +18,10 @@ public class OutputView {
     private static final String YIELD_PREFIX = "총 수익률은 ";
     private static final String YIELD_POSTFIX = "%입니다.";
 
+    public static void printError(String message) {
+        System.out.println("[ERROR] " + message);
+    }
+
     public void printLottos(int count, List<Lotto> lottos) {
         System.out.println(LINE_BREAK + count + LOTTO_COUNT_POSTFIX_MSG);
         for (Lotto lotto: lottos) {
