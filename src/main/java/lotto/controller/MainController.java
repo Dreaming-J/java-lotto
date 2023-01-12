@@ -1,6 +1,7 @@
 package lotto.controller;
 
 import lotto.model.Lotto;
+import lotto.model.LottoPrize;
 import lotto.model.LottoResult;
 import lotto.model.WinningLotto;
 import lotto.util.RandomGenerator;
@@ -9,6 +10,7 @@ import lotto.view.OutputView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MainController {
 
@@ -37,5 +39,11 @@ public class MainController {
 
     public void decideWinningLotto() {
         winningLotto = inputView.readWinningLotto();
+
+        List<LottoPrize> prizes = lottos.stream()
+                .map(winningLotto::draw)
+                .collect(Collectors.toList());
+
+        outputView.printLottoResult(prizes);
     }
 }
