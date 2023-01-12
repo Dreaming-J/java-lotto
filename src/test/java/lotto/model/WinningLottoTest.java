@@ -15,15 +15,15 @@ public class WinningLottoTest {
     class bonusNumberTest {
         @Test
         void 보너스_번호_1_45_검증() {
-            assertThatThrownBy(() -> new WinningLotto(List.of(1, 2, 3, 4, 5, 45), 0))
+            assertThatThrownBy(() -> new WinningLotto(new Lotto(List.of(1, 2, 3, 4, 5, 6)), 0))
                     .isInstanceOf(IllegalArgumentException.class);
-            assertThatThrownBy(() -> new WinningLotto(List.of(1, 2, 3, 4, 5, 45), 46))
+            assertThatThrownBy(() -> new WinningLotto(new Lotto(List.of(1, 2, 3, 4, 5, 6)), 46))
                     .isInstanceOf(IllegalArgumentException.class);
         }
 
         @Test
         void 보너스_번호_중복_검증() {
-            assertThatThrownBy(() -> new WinningLotto(List.of(1, 2, 3, 4, 5, 6), 1))
+            assertThatThrownBy(() -> new WinningLotto(new Lotto(List.of(1, 2, 3, 4, 5, 6)), 1))
                     .isInstanceOf(IllegalArgumentException.class);
         }
     }
@@ -34,7 +34,7 @@ public class WinningLottoTest {
 
         @BeforeEach
         void setUp() {
-            winningLotto = new WinningLotto(List.of(1, 2, 3, 4, 5, 6), 7);
+            winningLotto = new WinningLotto(new Lotto(List.of(1, 2, 3, 4, 5, 6)), 7);
         }
 
         @Test
