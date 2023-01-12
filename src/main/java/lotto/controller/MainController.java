@@ -2,6 +2,7 @@ package lotto.controller;
 
 import lotto.model.Lotto;
 import lotto.model.LottoResult;
+import lotto.model.WinningLotto;
 import lotto.util.RandomGenerator;
 import lotto.view.InputView;
 import lotto.view.OutputView;
@@ -15,6 +16,7 @@ public class MainController {
     private final OutputView outputView;
     private LottoResult result;
     private List<Lotto> lottos;
+    private WinningLotto winningLotto;
 
     public MainController() {
         inputView = new InputView();
@@ -29,5 +31,11 @@ public class MainController {
             lottos.add(new Lotto(RandomGenerator.createLottoNumbers()));
         }
         outputView.printLottos(result.count(), lottos);
+
+        decideWinningLotto();
+    }
+
+    public void decideWinningLotto() {
+        winningLotto = inputView.readWinningLotto();
     }
 }
