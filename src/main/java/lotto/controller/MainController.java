@@ -39,7 +39,8 @@ public class MainController extends RepeatModule {
     }
 
     public void decideWinningLotto() {
-        winningLotto = repeat(inputView::readWinningLotto);
+        Lotto winningNumber = repeat(inputView::readWinningNumber);
+        winningLotto = repeat(() -> inputView.readBonusNumber(winningNumber));
 
         List<LottoPrize> prizes = lottos.stream()
                 .map(winningLotto::draw)

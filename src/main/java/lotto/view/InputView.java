@@ -4,11 +4,10 @@ import camp.nextstep.edu.missionutils.Console;
 import lotto.model.Lotto;
 import lotto.model.LottoResult;
 import lotto.model.WinningLotto;
+import lotto.module.RepeatModule;
 import lotto.util.TypeConverter;
 
-import java.util.List;
-
-public class InputView {
+public class InputView extends RepeatModule {
 
     private static final String COST_INPUT_MSG = "구입금액을 입력해 주세요.";
     private static final String WINNING_NUMBER_INPUT_MSG = "\n당첨 번호를 입력해 주세요.";
@@ -19,20 +18,14 @@ public class InputView {
         return new LottoResult(TypeConverter.toInt(Console.readLine()));
     }
 
-    public WinningLotto readWinningLotto() {
-        Lotto winningNumber = readWinningNumber();
-        int bonusNumber = readBonusNumber();
-        return new WinningLotto(winningNumber, bonusNumber);
-    }
-
-    private Lotto readWinningNumber() {
+    public Lotto readWinningNumber() {
         System.out.println(WINNING_NUMBER_INPUT_MSG);
-        Lotto winningNumber = new Lotto(TypeConverter.toIntList(Console.readLine()));
-        return winningNumber;
+        return new Lotto(TypeConverter.toIntList(Console.readLine()));
     }
 
-    private int readBonusNumber() {
+    public WinningLotto readBonusNumber(Lotto winningNumber) {
         System.out.println(BONUS_NUMBER_INPUT_MSG);
-        return TypeConverter.toInt(Console.readLine());
+        int bonusNumber = TypeConverter.toInt(Console.readLine());
+        return new WinningLotto(winningNumber, bonusNumber);
     }
 }
