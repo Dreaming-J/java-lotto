@@ -15,6 +15,8 @@ public class OutputView {
     private static final String LOTTO_COUNT_POSTFIX_MSG = "개를 구매했습니다.";
     private static final String LOTTO_RESULT_PREFIX = "당첨 통계\n---";
     private static final String COUNT_UNIT = "개";
+    private static final String YIELD_PREFIX = "총 수익률은 ";
+    private static final String YIELD_POSTFIX = "%입니다.";
 
     public void printLottos(int count, List<Lotto> lottos) {
         System.out.println(LINE_BREAK + count + LOTTO_COUNT_POSTFIX_MSG);
@@ -35,6 +37,10 @@ public class OutputView {
                     .count();
             System.out.println(PrizeMsg.findMessage(lottoPrize.toString()) + count + COUNT_UNIT);
         }
+    }
+
+    public void printYield(String yield) {
+        System.out.println(YIELD_PREFIX + yield + YIELD_POSTFIX);
     }
 
     private enum PrizeMsg {
