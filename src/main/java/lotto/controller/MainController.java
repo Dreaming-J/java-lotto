@@ -45,5 +45,13 @@ public class MainController {
                 .collect(Collectors.toList());
 
         outputView.printLottoResult(prizes);
+
+        calYield(prizes);
+    }
+
+    public void calYield(List<LottoPrize> prizes) {
+        int totalPrize = result.calTotalPrize(prizes);
+        String yield = result.yield(totalPrize);
+        outputView.printYield(yield);
     }
 }
