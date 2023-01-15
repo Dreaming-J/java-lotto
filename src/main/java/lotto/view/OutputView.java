@@ -1,37 +1,72 @@
 package lotto.view;
 
-import lotto.enums.Ranking;
 import lotto.model.Lotto;
+import lotto.model.LottoNumber;
+import lotto.model.LottoPrize;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class OutputView {
 
-    private static final String MSG_LOTTOS_COUNT = "개를 구매했습니다.";
-    private static final String MSG_RESULT_STATISTICS = "당첨 통계\n---";
-    private static final String HYPON = " - ";
-    private static final String UNIT_OF_COUNT = "개";
-    private static final String MSG_RATE_OF_RETURN_PREFIX = "총 수익률은 ";
-    private static final String MSG_RATE_OF_RETURN_POSTFIX = "%입니다.";
+    private static final String LINE_BREAK = "\n";
+    private static final String LOTTO_COUNT_POSTFIX_MSG = "개를 구매했습니다.";
+    private static final String LOTTO_RESULT_PREFIX = "당첨 통계\n---";
+    private static final String COUNT_UNIT = "개";
+    private static final String YIELD_PREFIX = "총 수익률은 ";
+    private static final String YIELD_POSTFIX = "%입니다.";
 
-    public void printIssuedLottoCount(int count, List<Lotto> lottos) {
-        System.out.println("\n" + count + MSG_LOTTOS_COUNT);
+    public static void printError(String message) {
+        System.out.println("[ERROR] " + message);
+    }
 
-        for (Lotto lotto : lottos) {
-            System.out.println(lotto.getNumbers());
+    public void printLottos(int count, List<Lotto> lottos) {
+        System.out.println(LINE_BREAK + count + LOTTO_COUNT_POSTFIX_MSG);
+        for (Lotto lotto: lottos) {
+            List<Integer> lottoNumbers = lotto.getNumbers().stream()
+                    .map(LottoNumber::getNo)
+                    .collect(Collectors.toList());
+            System.out.println(lottoNumbers);
         }
     }
 
-    public void printResultStatistics(Map<String, Integer> resultComparingLotto) {
-        System.out.println("\n" + MSG_RESULT_STATISTICS);
+    public void printLottoResult(List<LottoPrize> prizes) {
+        System.out.println(LINE_BREAK + LOTTO_RESULT_PREFIX);
 
-        for (Ranking ranking : Ranking.getRealRanking()) {
-            System.out.println(ranking.getMessage() + HYPON + resultComparingLotto.get(ranking.name()) + UNIT_OF_COUNT);
+        for (LottoPrize lottoPrize : LottoPrize.valuesWithoutNothing()) {
+            int count = (int) prizes.stream()
+                    .filter(prize -> Objects.equals(prize, lottoPrize))
+                    .count();
+            System.out.println(PrizeMsg.findMessage(lottoPrize.toString()) + count + COUNT_UNIT);
         }
     }
 
-    public void printRateOfReturn(String integerPart, String decimalPart) {
-        System.out.println(MSG_RATE_OF_RETURN_PREFIX + integerPart + decimalPart + MSG_RATE_OF_RETURN_POSTFIX);
+    public void printYield(String yield) {
+        System.out.println(YIELD_PREFIX + yield + YIELD_POSTFIX);
+    }
+
+    private enum PrizeMsg {
+        NOTHING(""),
+        FIFTH("3개 일치 (5,000원) - "),
+        FOURTH("4개 일치 (50,000원) - "),
+        THIRD("5개 일치 (1,500,000원) - "),
+        SECOND("5개 일치, 보너스 볼 일치 (30,000,000원) - "),
+        FIRST("6개 일치 (2,000,000,000원) - ");
+
+        private final String message;
+
+        PrizeMsg(String message) {
+            this.message = message;
+        }
+
+        public static String findMessage(String message) {
+            return Stream.of(values())
+                    .filter(prizeMsg -> Objects.equals(prizeMsg.toString(), message))
+                    .findFirst()
+                    .orElse(NOTHING)
+                    .message;
+        }
     }
 }

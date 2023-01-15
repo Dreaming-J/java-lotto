@@ -1,56 +1,39 @@
 package lotto.model;
 
-import lotto.enums.Ranking;
-import lotto.utils.LottoValidator;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Lotto {
-
-    private static final int ZERO = 0;
-    private static final int MATCH_WINNING_NUMBER = 1;
-    private static final int MATCH_BONUS_NUMMBER = 10;
-
-    private final List<Integer> numbers;
+    private static final String WRONG_FORMAT_OF_LOTTO_NUMBER = "로또는 중복되지 않는 6개의 숫자로 이루어져야 합니다.";
+    private static final int LOTTO_NUMBER_SIZE = 6;
+    private final List<LottoNumber> numbers;
 
     public Lotto(List<Integer> numbers) {
         validate(numbers);
-        this.numbers = numbers;
+        this.numbers = numbers.stream()
+                .sorted()
+                .map(LottoNumber::new)
+                .collect(Collectors.toList());
     }
 
     private void validate(List<Integer> numbers) {
-        new LottoValidator(numbers);
-    }
-
-    public List<Integer> getNumbers() {
-        return this.numbers;
-    }
-
-    public Ranking countMatchingNumber(List<Integer> winningNumbers, int bonusNumber) {
-        int matchingCount = countMatchingWinningNumbers(winningNumbers) + countMatchingBonusNumbers(bonusNumber);
-
-        return Ranking.getRankingByMatchingCount(matchingCount);
-    }
-
-    private int countMatchingWinningNumbers(List<Integer> winningNumbers) {
-        int count = ZERO;
-
-        for (int winningNumber : winningNumbers) {
-            if (this.numbers.contains(winningNumber)) {
-                count += MATCH_WINNING_NUMBER;
-            }
+        if (numbers.stream().distinct().count() != LOTTO_NUMBER_SIZE) {
+            throw new IllegalArgumentException(WRONG_FORMAT_OF_LOTTO_NUMBER);
         }
-
-        return count;
     }
 
-    private int countMatchingBonusNumbers(int bonusNumber) {
-        int count = ZERO;
+    public List<LottoNumber> getNumbers() {
+        return numbers;
+    }
 
-        if (this.numbers.contains(bonusNumber)) {
-            count += MATCH_BONUS_NUMMBER;
-        }
+    public int draw(Lotto lotto) {
+        return (int) numbers.stream()
+                .map(lotto::draw)
+                .filter(bool -> bool)
+                .count();
+    }
 
-        return count;
+    public boolean draw(LottoNumber lottoNumber) {
+        return numbers.contains(lottoNumber);
     }
 }
