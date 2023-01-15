@@ -29,7 +29,7 @@ public enum Ranking {
     public String getMessage() {
         return this.message;
     }
-
+  
     public static Ranking getRankingByMatchingCount(int matchingCount) {
         return Stream.of(values())
                 .filter(ranking -> ranking.matchingCount == matchingCount)
