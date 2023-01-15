@@ -1,13 +1,13 @@
 package lotto;
 
-import lotto.controller.ApplicationController;
+import lotto.controller.MainController;
 
 public class Application {
     public static void main(String[] args) {
         try {
-            ApplicationController applicationController = new ApplicationController();
-            applicationController.startApplication();
-        } catch (Exception e) {
+            MainController mainController = new MainController();
+            mainController.start();
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }

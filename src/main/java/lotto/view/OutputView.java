@@ -1,31 +1,37 @@
 package lotto.view;
 
-import lotto.model.Lotto;
 import lotto.enums.Ranking;
-
-import static lotto.enums.PrintMsg.*;
+import lotto.model.Lotto;
 
 import java.util.List;
+import java.util.Map;
 
 public class OutputView {
-    public void printLottoCount(int lottoCount) {
-        System.out.println(LINE_BREAK.getMessage() + lottoCount + OUTPUT_PURCHASE_LOTTO.getMessage());
-    }
 
-    public void printLottoNumber(List<Lotto> lottoNumbers) {
-        for (int lottoCount = 0; lottoCount < lottoNumbers.size(); lottoCount++) {
-            System.out.println(lottoNumbers.get(lottoCount).getNumbers());
+    private static final String MSG_LOTTOS_COUNT = "개를 구매했습니다.";
+    private static final String MSG_RESULT_STATISTICS = "당첨 통계\n---";
+    private static final String HYPON = " - ";
+    private static final String UNIT_OF_COUNT = "개";
+    private static final String MSG_RATE_OF_RETURN_PREFIX = "총 수익률은 ";
+    private static final String MSG_RATE_OF_RETURN_POSTFIX = "%입니다.";
+
+    public void printIssuedLottoCount(int count, List<Lotto> lottos) {
+        System.out.println("\n" + count + MSG_LOTTOS_COUNT);
+
+        for (Lotto lotto : lottos) {
+            System.out.println(lotto.getNumbers());
         }
     }
 
-    public void printWinningResult(List<Ranking> winningResult) {
-        System.out.println(LINE_BREAK.getMessage() + OUTPUT_WINNING_RESULT.getMessage());
-        for (Ranking rank : winningResult) {
-            System.out.println(rank.getMessage() + rank.getWinningResult() + OUTPUT_COUNT.getMessage());
+    public void printResultStatistics(Map<String, Integer> resultComparingLotto) {
+        System.out.println("\n" + MSG_RESULT_STATISTICS);
+
+        for (Ranking ranking : Ranking.getRealRanking()) {
+            System.out.println(ranking.getMessage() + HYPON + resultComparingLotto.get(ranking.name()) + UNIT_OF_COUNT);
         }
     }
 
-    public void printLottoYield(String lottoYield) {
-        System.out.println(OUTPUT_TOTAL_YIELD.getMessage() + lottoYield + OUTPUT_POSTFIX.getMessage());
+    public void printRateOfReturn(String integerPart, String decimalPart) {
+        System.out.println(MSG_RATE_OF_RETURN_PREFIX + integerPart + decimalPart + MSG_RATE_OF_RETURN_POSTFIX);
     }
 }
